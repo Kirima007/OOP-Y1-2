@@ -51,12 +51,12 @@ public:
         playing_sec = 0;
     }
 
-    media(string _name, string _author, int _length)
+    media(string _name, string _author, int _length, int _time)
     { // 3 parameter constructor
         name = _name;
         author = _author;
         length = _length;
-        playing_sec = 0;
+        playing_sec = _time;
     }
 };
 
@@ -70,7 +70,7 @@ public:
     { // default constructor
     }
 
-    song(string _name, string _author, int _length, string _brand) : media(_name, _author, _length)
+    song(string _name, string _author, int _length, string _brand) : media(_name, _author, _length,0)
     { // 4 parameter constructor
         brand = _brand;
     }
@@ -98,10 +98,19 @@ public:
     { // default constructor
     }
 
-    movie(string _name, string _author, int _length, string _director, string _actor) : media(_name, _author, _length)
+    movie(string _name, string _author, int _length,int _time, string _director, string _actor) : media(_name, _author, _length,_time)
+    { // 6 parameter constructor
+        director = _director;
+        main_actor = _actor;
+    }
+    movie(string _name, string _author, int _length, string _director, string _actor) : media(_name, _author, _length,0)
     { // 5 parameter constructor
         director = _director;
         main_actor = _actor;
+    }
+    void print_movie()
+    {
+        cout << "now we playing " << name << " directed by " << director << " at " << get_playing_sec() << " sec" << endl;
     }
 };
 
@@ -117,10 +126,38 @@ public:
         episode_number = -1;
     }
 
-    episode(string _name, string _author, int _length, int ep_num, string ep_name) : media(_name, _author, _length)
+    episode(string _name, string _author, int _length,int _time, int ep_num, string ep_name) : media(_name, _author, _length,_time)
+    { // 6 parameter constructor
+        episode_number = ep_num;
+        episode_name = ep_name;
+    }
+    episode(string _name, string _author, int _length, int ep_num, string ep_name) : media(_name, _author, _length,0)
     { // 5 parameter constructor
         episode_number = ep_num;
         episode_name = ep_name;
+    }
+
+    void print_episode(){
+        cout << "now we playing " << name << " that be ep. " << episode_number << " at " << get_playing_sec() << " sec" << endl;
+    }
+};
+
+class podcast : public media{
+    private:
+    string podcaststation;
+
+public:
+    podcast()
+    { // default constructor
+        podcaststation = "unknown";
+    }
+
+    podcast(string _name, string _author, int _length, string _podcaststation) : media(_name, _author, _length,0)
+    { // 5 parameter constructor
+        podcaststation = _podcaststation;
+    }
+    void print_podcast(){
+        cout << "now we playing " << name << " from " << podcaststation << " podcast station at " << get_playing_sec() << " sec" << endl;
     }
 };
 
